@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible"
+          content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            display: block;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>进场</th>
+                <th>离场</th>
+                <th>进近过渡</th>
+                <th>进近复飞</th>
+                <th>进场等待</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>04L</td>
+                <td id="04L_arr">
+                </td>
+                <td id="04L_dep">
+                </td>
+                <td id="04L_app">
+                </td>
+                <td id="04L_goAround">
+                </td>
+                <td id="04L_hold">
+                </td>
+
+            </tr>
+            <tr>
+                <td>04R</td>
+                <td id="04R_arr">
+                </td>
+                <td id="04R_dep">
+                </td>
+                <td id="04R_app">
+                </td>
+                <td id="04R_goAround">
+                </td>
+                <td id="04R_hold">
+                </td>
+            </tr>
+            <tr>
+                <td>04L/R</td>
+                <td id="04LR_arr">
+                </td>
+                <td id="04LR_dep">
+                </td>
+                <td id="04LR_app">
+                </td>
+                <td id="04LR_goAround">
+                </td>
+                <td id="04LR_hold">
+                </td>
+            </tr>
+            <tr>
+                <td>22L</td>
+                <td id="22L_arr">
+                </td>
+                <td id="22L_dep">
+                </td>
+                <td id="22L_app">
+                </td>
+                <td id="22L_goAround">
+                </td>
+                <td id="22L_hold">
+                </td>
+            </tr>
+            <tr>
+                <td>22R</td>
+                <td id="22R_arr">
+                </td>
+                <td id="22R_dep">
+                </td>
+                <td id="22R_app">
+                </td>
+                <td id="22R_goAround">
+                </td>
+                <td id="22R_hold">
+                </td>
+            </tr>
+            <tr>
+                <td>22L/R</td>
+                <td id="22LR_arr">
+                </td>
+                <td id="22LR_dep">
+                </td>
+                <td id="22LR_app">
+                </td>
+                <td id="22LR_goAround">
+                </td>
+                <td id="22LR_hold">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+    <ul class="filter-ctrl"
+        id="list">
+    </ul>
+    fasdasdfasdf
+    <script type="text/javascript">
+        function myFunction(e, s) {
+            if (e.checked) {
+                console.log(e.checked);
+                // get http://localhost:3099/geojsonmap/zhhhxsh19a.geojson
+                const prefixURL = 'http://localhost:3099/geojsonmap/zhhh';
+                console.log(prefixURL + s.id);
+                map.addSource(s.id, { 'type': 'geojson', 'data': prefixURL + s.id });
+                if (s.type === "point") {
+                    map.addLayer({
+                        'id': s.id,
+                        type: 'symbol',
+                        source: s.id,
+                        "layout": {
+                            "text-field": "{title}",
+                            "text-offset": [0, 0.6],
+                            "text-anchor": "top"
+                        }
+                    })
+                    map.addLayer({
+                        'id': s.id + '_circle',
+                        type: 'circle',
+                        source: s.id,
+                        'paint': {
+                            // make circles larger as the user zooms from z12 to z22
+                            'circle-radius': {
+                                'base': 3,
+                                'stops': [
+                                    [12, 3],
+                                    [22, 180]
+                                ]
+                            },
+                            'circle-color': s.color
+                        }
+                    })
+                } else {
+                    map.addLayer({
+                        'id': s.id,
+                        type: 'line',
+                        source: s.id,
+                        layout: {
+                            'line-join': 'round',
+                            'line-cap': 'round'
+                        },
+                        paint: {
+                            'line-color': s.color,
+                            'line-width': 1
+                        }
+                    })
+                }
+            } else {
+                map.removeLayer(s.id);
+                map.removeSource(s.id);
+            }
+
+        }
+
+        window.onload = function () {
+            console.log("window onload")
+            fetch("http://localhost:3099/buttons")
+                .then(function (res) {
+                    return res.json();
+                })
+                .then(function (res) {
+                    // console.log(res);
+
+                    var _04L_arr = document.getElementById('04L_arr');
+                    var _04L_dep = document.getElementById('04L_dep');
+                    var _04L_app = document.getElementById('04L_app');
+                    var _04L_goAround = document.getElementById('04L_goAround');
+                    var _04L_hold = document.getElementById('04L_hold');
+                    var _04R_arr = document.getElementById('04R_arr');
+                    var _04R_dep = document.getElementById('04R_dep');
+                    var _04R_app = document.getElementById('04R_app');
+                    var _04R_goAround = document.getElementById('04R_goAround');
+                    var _04R_hold = document.getElementById('04R_hold');
+                    var _04LR_arr = document.getElementById('04LR_arr');
+                    var _04LR_dep = document.getElementById('04LR_dep');
+                    var _04LR_app = document.getElementById('04LR_app');
+                    var _04LR_goAround = document.getElementById('04LR_goAround');
+                    var _04LR_hold = document.getElementById('04LR_hold');
+                    var _22L_arr = document.getElementById('22L_arr');
+                    var _22L_dep = document.getElementById('22L_dep');
+                    var _22L_app = document.getElementById('22L_app');
+                    var _22L_goAround = document.getElementById('22L_goAround');
+                    var _22L_hold = document.getElementById('22L_hold');
+                    var _22R_arr = document.getElementById('22R_arr');
+                    var _22R_dep = document.getElementById('22R_dep');
+                    var _22R_app = document.getElementById('22R_app');
+                    var _22R_goAround = document.getElementById('22R_goAround');
+                    var _22R_hold = document.getElementById('22R_hold');
+                    var _22LR_arr = document.getElementById('22LR_arr');
+                    var _22LR_dep = document.getElementById('22LR_dep');
+                    var _22LR_app = document.getElementById('22LR_app');
+                    var _22LR_goAround = document.getElementById('22LR_goAround');
+                    var _22LR_hold = document.getElementById('22LR_hold');
+                    var testid = document.getElementById('testid');
+
+                    var ButtonList = document.getElementById('list');
+                    res.forEach((s, index) => {
+                        var input = document.createElement('input');
+                        input.type = "checkbox";
+                        input.addEventListener("click",myFunction.bind(null,input,s),false) ;     
+
+                        input.id = index;
+                        var lb = document.createElement('label');
+                        lb.htmlFor = index;
+                        lb.innerHTML = index + ' ' + s.ProcedureName;
+                        var li = document.createElement('div');
+                        li.appendChild(input);
+                        li.appendChild(lb);
+
+                        var li2 = document.createElement('div');
+                        li2.innerHTML = s.ProcedureName;
+
+                        var str = s.ProcedureName;
+
+                        if (str.includes("04L") && str.includes("进场") && (!str.includes('进场等待'))) {
+                            li.innerHTML = li.innerHTML.replace('进场', '').replace('RWY04L ', '');
+                            _04L_arr.appendChild(li);
+                        }
+                        if (str.includes("04L") && str.includes("离场")) {
+                            li.innerHTML = li.innerHTML.replace('离场', '').replace('RWY04L ', '');
+                            _04L_dep.appendChild(li);
+                        }
+                        if (str.includes("04L") && str.includes("进近过渡")) {
+                            _04L_app.appendChild(li);
+                        }
+                        if (str.includes("04L") && str.includes("复飞")) {
+                            _04L_goAround.appendChild(li);
+                        }
+                        if (str.includes("04L") && str.includes("进场等待")) {
+                            _04L_hold.appendChild(li);
+                        }
+                        if (str.includes("04R") && str.includes("进场") && (!str.includes('进场等待'))) {
+                            li.innerHTML = li.innerHTML.replace('进场', '').replace('RWY04R ', '');
+                            _04R_arr.appendChild(li);
+                        }
+                        if (str.includes("04R") && str.includes("离场 ")) {
+                            li.innerHTML = li.innerHTML.replace('离场', '').replace('RWY04R ', '');
+
+                            _04R_dep.appendChild(li);
+                        }
+                        if (str.includes("04R") && str.includes("进近过渡")) {
+                            _04R_app.appendChild(li);
+                        }
+                        if (str.includes("04R") && str.includes("复飞")) {
+                            _04R_goAround.appendChild(li);
+                        }
+                        if (str.includes("04R") && str.includes("进场等待")) {
+                            _04R_hold.appendChild(li);
+                        }
+                        if (str.includes("04L/R") && str.includes("进场") && (!str.includes('进场等待'))) {
+                            li.innerHTML = li.innerHTML.replace('进场', '').replace('RWY04L/R ', '');
+                            _04LR_arr.appendChild(li);
+                        }
+                        if (str.includes("04L/R") && str.includes("离场 ")) {
+                            _04LR_dep.appendChild(li);
+                        }
+                        if (str.includes("04L/R") && str.includes("进近过渡")) {
+                            _04LR_app.appendChild(li);
+                        }
+                        if (str.includes("04L/R") && str.includes("复飞")) {
+                            _04LR_goAround.appendChild(li);
+                        }
+                        if (str.includes("04L/R") && str.includes("进场等待")) {
+                            _04LR_hold.appendChild(li);
+                        }
+                        if (str.includes("22L") && str.includes("进场") && (!str.includes('进场等待'))) {
+                            _22L_arr.appendChild(li);
+                        }
+                        if (str.includes("22L") && str.includes("离场 ")) {
+                            li.innerHTML = li.innerHTML.replace('离场', '').replace('RWY22L ', '');
+
+                            _22L_dep.appendChild(li);
+                        }
+                        if (str.includes("22L") && str.includes("进近过渡")) {
+                            _22L_app.appendChild(li);
+                        }
+                        if (str.includes("22L") && str.includes("复飞")) {
+                            _22L_goAround.appendChild(li);
+                        }
+                        if (str.includes("22L") && str.includes("进场等待")) {
+                            _22L_hold.appendChild(li);
+                        }
+                        if (str.includes("22R") && str.includes("进场") && (!str.includes('进场等待'))) {
+                            _22R_arr.appendChild(li);
+                        }
+                        if (str.includes("22R") && str.includes("离场 ")) {
+                            li.innerHTML = li.innerHTML.replace('离场', '').replace('RWY22R ', '');
+
+                            _22R_dep.appendChild(li);
+                        }
+                        if (str.includes("22R") && str.includes("进近过渡")) {
+                            _22R_app.appendChild(li);
+                        }
+                        if (str.includes("22R") && str.includes("复飞")) {
+                            _22R_goAround.appendChild(li);
+                        }
+                        if (str.includes("22R") && str.includes("进场等待")) {
+                            _22R_hold.appendChild(li);
+                        }
+                        if (str.includes("22L/R") && str.includes("进场") && (!str.includes('进场等待'))) {
+                            li.innerHTML = li.innerHTML.replace('进场', '').replace('RWY22L/R ', '');
+
+                            _22LR_arr.appendChild(li);
+                        }
+                        if (str.includes("22L/R") && str.includes("离场 ")) {
+                            _22LR_dep.appendChild(li);
+                        }
+                        if (str.includes("22L/R") && str.includes("进近过渡")) {
+                            _22LR_app.appendChild(li);
+                        }
+                        if (str.includes("22L/R") && str.includes("复飞")) {
+                            _22LR_goAround.appendChild(li);
+                        }
+                        if (str.includes("22L/R") && str.includes("进场等待")) {
+                            _22LR_hold.appendChild(li);
+                        }
+
+                        ButtonList.appendChild(li2);
+                        // _04L_arr.appendChild(li);
+
+                    }
+                    );
+                })
+        };
+    </script>
+</body>
+
+</html>

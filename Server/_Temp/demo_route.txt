@@ -1,0 +1,135 @@
+https://www.instagram.com/
+
+https://www.instagram.com/ppforsn/
+
+https://www.instagram.com/emails/settings/
+
+https://www.instagram.com/explore/
+https://www.instagram.com/explore/tags/gfds/
+https://www.instagram.com/explore/people/suggested/
+
+
+
+https://www.instagram.com/stories/dadachan/
+
+https://www.instagram.com/shihono11/
+https://www.instagram.com/shihono11/followers/
+https://www.instagram.com/shihono11/following/
+https://www.instagram.com/shihono11/hashtag_following/
+
+https://www.instagram.com/p/Bz5M_CqB6ZK/
+
+https://www.instagram.com/stories/highlights/17854235581274101/
+
+
+
+https://www.instagram.com/accounts/login/
+https://www.instagram.com/accounts/login/?source=auth_switcher
+
+https://www.instagram.com/accounts/password/reset/
+https://www.instagram.com/accounts/emailsignup/
+https://www.instagram.com/accounts/edit/
+https://www.instagram.com/accounts/password/change/
+https://www.instagram.com/accounts/manage_access/
+https://www.instagram.com/accounts/contact_history/
+https://www.instagram.com/accounts/privacy_and_security/
+https://www.instagram.com/accounts/comment_filter/
+
+  function myFunction(e, name) {
+
+      console.log(e.checked);
+
+      var layerName = name + '_layer';
+      console.log(layerName);
+      
+      if (e.checked) {
+        map.addLayer({
+          'id': layerName,
+          type: 'line',
+          source: {
+            'type': 'geojson',
+            'data': dataURL,
+          },
+          layout: {
+            'line-join': 'round',
+            'line-cap': 'round'
+          },
+          paint: {
+            'line-color': '#888',
+            'line-width': 4
+          }
+        })
+      } else {
+        map.removeLayer(layerName);
+      }
+
+
+      // map.addSource('radar', {
+      //   'type': 'geojson',
+      //   'data': 'http://localhost:3099/radar/zhhh_app_rnp_fix',
+      // });
+      // map.addLayer({
+      //   'id': 'fix',
+      //   type: 'symbol',
+      //   'source': 'radar',
+      //   layout: {
+      //     'text-field': ["get", "title"],
+      //     'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+      //     'text-size': 12
+      //   }
+      // })
+
+
+
+ <li>
+      <input type="checkbox" onclick="myFunction(this,'GUGAM09A')" id="GUGAM09A">
+      <label for="GUGAM09A">GUGAM09A</label>
+    </li>
+    <li>
+      <input type="checkbox" onclick="myFunction(this,'GUGMA18A')" id="GUGMA18A">
+      <label for="GUGMA18A">GUGMA18A</label></li>
+    <br>
+    <li>
+      <input type="checkbox" onclick="myFunction(this,'LKO09A')" id="LKO09A">
+      <label for="LKO09A">LKO09A</label>
+    </li>
+    <li>
+      <input type="checkbox" onclick="myFunction(this,'LKO18A')" id="LKO18A">
+      <label for="LKO18A">LKO18A</label>
+    </li>
+    <li>
+      <input type="checkbox" onclick="myFunction(this,'LKO19A')" id="LKO19A">
+      <label for="LKO19A">LKO19A</label>
+    </li>
+    <br>
+    <li>
+      <input type="checkbox" onclick="myFunction(this,'ONIXO08A')" id="ONIXO08A">
+      <label for="ONIXO08A">ONIXO08A</label>
+    </li>
+    <li>
+      <input type="checkbox" onclick="myFunction(this,'ONIXO09A')" id="ONIXO09A">
+      <label for="ONIXO09A">ONIXO09A</label>
+    </li>
+    <li><input type="checkbox" onclick="myFunction(this,'ONIXO19A')" id="ONIXO19A"><label
+        for="ONIXO19A">ONIXO19A</label></li>
+    <br>
+    <li>
+      <input type="checkbox" onclick="myFunction(this,'XSH08A')" id="XSH08A">
+      <label for="XSH08A">XSH08A</label>
+    </li>
+    <li>
+      <input type="checkbox" onclick="myFunction(this,'XSH09A')" id="XSH09A">
+      <label for="XSH09A">XSH09A</label>
+    </li>
+    <li>
+      <input type="checkbox" onclick="myFunction(this,'XSH17A')" id="XSH17A">
+      <label for="XSH17A">XSH17A</label>
+    </li>
+    <li>
+      <input type="checkbox" onclick="myFunction(this,'XSH18A')" id="XSH18A">
+      <label for="XSH18A">XSH18A</label>
+    </li>
+    <li>
+      <input type="checkbox" onclick="myFunction(this,'XSH19A')" id="XSH19A">
+      <label for="XSH19A">XSH19A</label>
+    </li>

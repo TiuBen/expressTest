@@ -1,0 +1,38 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "PROCEDURE": "ZHHH RWY04-R BIVIP-06D",
+                "POINTS": [
+                    "HH500",
+                    "HH466",
+                    "DHP",
+                    "BIVIP"
+                ]
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        114.23566666666667,
+                        30.781972222222223
+                    ],
+                    [
+                        114.32963888888888,
+                        30.835666666666665
+                    ],
+                    [
+                        114.47166666666666,
+                        30.871666666666666
+                    ],
+                    [
+                        115.28,
+                        31.128333333333334
+                    ]
+                ]
+            }
+        }
+    ]
+}
